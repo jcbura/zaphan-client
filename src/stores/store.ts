@@ -1,7 +1,9 @@
 import { rootApi } from '@/api';
+import { verseSelectionSlice } from '@/stores';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
+  verseSelection: verseSelectionSlice.reducer,
   [rootApi.reducerPath]: rootApi.reducer,
 });
 
