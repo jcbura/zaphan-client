@@ -1,5 +1,5 @@
 import { TooltipProvider } from '@/components';
-import { ModeProvider } from '@/providers';
+import { ModeProvider, StoreProvider } from '@/providers';
 import { cn } from '@/utils';
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
@@ -36,14 +36,16 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       )}
     >
       <body className="flex min-h-full flex-col">
-        <ModeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TooltipProvider delay={700}>{children}</TooltipProvider>
-        </ModeProvider>
+        <StoreProvider>
+          <ModeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <TooltipProvider delay={700}>{children}</TooltipProvider>
+          </ModeProvider>
+        </StoreProvider>
       </body>
     </html>
   );
