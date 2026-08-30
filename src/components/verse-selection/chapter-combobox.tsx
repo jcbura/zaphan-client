@@ -40,7 +40,7 @@ export const ChapterCombobox = () => {
     >
       <ComboboxInput
         className="max-w-45"
-        placeholder={isLoading ? 'Loading chapters…' : 'Select a chapter'}
+        placeholder={isLoading ? 'Loading chapters…' : 'Select chapter'}
         disabled={!bookId || isLoading}
         showClear
       />
