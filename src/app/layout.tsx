@@ -1,5 +1,5 @@
 import { TooltipProvider } from '@/components';
-import { ModeProvider } from '@/providers';
+import { ModeProvider, StoreProvider } from '@/providers';
 import { cn } from '@/utils';
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
@@ -42,7 +42,9 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           enableSystem
           disableTransitionOnChange
         >
-          <TooltipProvider delay={700}>{children}</TooltipProvider>
+          <TooltipProvider delay={700}>
+            <StoreProvider>{children}</StoreProvider>
+          </TooltipProvider>
         </ModeProvider>
       </body>
     </html>
