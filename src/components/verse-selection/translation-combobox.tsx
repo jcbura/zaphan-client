@@ -28,7 +28,7 @@ export const TranslationCombobox = () => {
       items={translations}
       value={selectedTranslation}
       onValueChange={(translation: Translation | null) => {
-        if (translation) dispatch(setTranslation(translation.name));
+        dispatch(setTranslation(translation?.name ?? null));
       }}
       itemToStringValue={(translation: Translation) => translation.name}
       itemToStringLabel={(translation: Translation) => translation.name}
@@ -39,6 +39,7 @@ export const TranslationCombobox = () => {
           isLoading ? 'Loading translations…' : 'Select a translation'
         }
         disabled={isLoading}
+        showClear
       />
       <ComboboxContent>
         <ComboboxEmpty>No translations found.</ComboboxEmpty>

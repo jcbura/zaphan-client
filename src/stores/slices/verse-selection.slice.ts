@@ -21,23 +21,31 @@ const verseSelectionSlice = createSlice({
   name: 'verseSelection',
   initialState,
   reducers: {
-    setTranslation(state, action: PayloadAction<string>) {
+    setTranslation(state, action: PayloadAction<string | null>) {
       state.translation = action.payload;
+      if (action.payload === null) {
+        state.bookId = null;
+        state.chapterNumber = null;
+        state.verseStart = null;
+        state.verseEnd = null;
+      }
     },
-    setBook(state, action: PayloadAction<number>) {
+    setBook(state, action: PayloadAction<number | null>) {
       state.bookId = action.payload;
       state.chapterNumber = null;
       state.verseStart = null;
       state.verseEnd = null;
     },
-    setChapter(state, action: PayloadAction<number>) {
+    setChapter(state, action: PayloadAction<number | null>) {
       state.chapterNumber = action.payload;
       state.verseStart = null;
       state.verseEnd = null;
     },
-    setVerseStart(state, action: PayloadAction<number>) {
+    setVerseStart(state, action: PayloadAction<number | null>) {
       state.verseStart = action.payload;
-      if (state.verseEnd !== null && state.verseEnd < action.payload) {
+      if (action.payload === null) {
+        state.verseEnd = null;
+      } else if (state.verseEnd !== null && state.verseEnd < action.payload) {
         state.verseEnd = null;
       }
     },
