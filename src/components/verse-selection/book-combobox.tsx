@@ -27,7 +27,7 @@ export const BookCombobox = () => {
       items={books}
       value={selectedBook}
       onValueChange={(book: Book | null) => {
-        if (book) dispatch(setBook(book.id));
+        dispatch(setBook(book?.id ?? null));
       }}
       itemToStringValue={(book: Book) => book.name}
       itemToStringLabel={(book: Book) => book.name}
@@ -36,6 +36,7 @@ export const BookCombobox = () => {
         className="max-w-45"
         placeholder={isLoading ? 'Loading books…' : 'Select a book'}
         disabled={isLoading}
+        showClear
       />
       <ComboboxContent>
         <ComboboxEmpty>No books found.</ComboboxEmpty>

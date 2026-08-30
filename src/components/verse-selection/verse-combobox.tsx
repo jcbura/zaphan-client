@@ -53,9 +53,9 @@ export const VerseCombobox = ({ isStart = false }: Props) => {
       value={selectedVerse}
       onValueChange={(verse: Verse | null) => {
         if (isStart) {
-          if (verse) dispatch(setVerseStart(verse.verseNumber));
+          dispatch(setVerseStart(verse?.verseNumber ?? null));
         } else {
-          dispatch(setVerseEnd(verse ? verse.verseNumber : null));
+          dispatch(setVerseEnd(verse?.verseNumber ?? null));
         }
       }}
       itemToStringValue={(verse: Verse) => String(verse.verseNumber)}
@@ -66,7 +66,7 @@ export const VerseCombobox = ({ isStart = false }: Props) => {
         className="max-w-45"
         placeholder={isLoading ? 'Loading verses…' : 'Select a verse'}
         disabled={disabled || isLoading}
-        showClear={!isStart}
+        showClear
       />
       <ComboboxContent>
         <ComboboxEmpty>No verses found.</ComboboxEmpty>

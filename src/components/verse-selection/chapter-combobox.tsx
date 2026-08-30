@@ -32,7 +32,7 @@ export const ChapterCombobox = () => {
       items={chapters}
       value={selectedChapter}
       onValueChange={(chapter: Chapter | null) => {
-        if (chapter) dispatch(setChapter(chapter.chapterNumber));
+        dispatch(setChapter(chapter?.chapterNumber ?? null));
       }}
       itemToStringValue={(chapter: Chapter) => String(chapter.chapterNumber)}
       itemToStringLabel={(chapter: Chapter) => String(chapter.chapterNumber)}
@@ -42,6 +42,7 @@ export const ChapterCombobox = () => {
         className="max-w-45"
         placeholder={isLoading ? 'Loading chapters…' : 'Select a chapter'}
         disabled={!bookId || isLoading}
+        showClear
       />
       <ComboboxContent>
         <ComboboxEmpty>No chapters found.</ComboboxEmpty>

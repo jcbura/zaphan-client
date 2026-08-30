@@ -36,16 +36,16 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       )}
     >
       <body className="flex min-h-full flex-col">
-        <StoreProvider>
-          <ModeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <TooltipProvider delay={700}>{children}</TooltipProvider>
-          </ModeProvider>
-        </StoreProvider>
+        <ModeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TooltipProvider delay={700}>
+            <StoreProvider>{children}</StoreProvider>
+          </TooltipProvider>
+        </ModeProvider>
       </body>
     </html>
   );
