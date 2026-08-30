@@ -2,7 +2,23 @@ import { rootApi } from '@/api';
 import { verseSelectionSlice } from '@/stores';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
+
+const createNoopStorage = () => {
+  return {
+    getItem() {
+      return Promise.resolve(null);
+    },
+    setItem() {
+      return Promise.resolve();
+    },
+    removeItem() {
+      return Promise.resolve();
+    },
+  };
+};
+const isServer = typeof window === 'undefined';
+const storage = isServer ? createNoopStorage() : createWebStorage('local');
 
 const persistConfig = {
   key: 'root',
