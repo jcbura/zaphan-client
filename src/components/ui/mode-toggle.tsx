@@ -1,6 +1,12 @@
 'use client';
 
-import { Button, Tooltip, TooltipContent, TooltipTrigger } from '@/components';
+import {
+  Button,
+  P,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components';
 import { SunHorizonIcon } from '@phosphor-icons/react';
 import { useTheme } from 'next-themes';
 
@@ -20,8 +26,8 @@ export const ModeToggle = () => {
           </Button>
         }
       />
-      <TooltipContent>
-        <p>{resolvedTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</p>
+      <TooltipContent side="left" sideOffset={8}>
+        <P>{resolvedTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</P>
       </TooltipContent>
     </Tooltip>
   );

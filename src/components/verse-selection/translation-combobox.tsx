@@ -35,9 +35,7 @@ export const TranslationCombobox = () => {
     >
       <ComboboxInput
         className="max-w-45"
-        placeholder={
-          isLoading ? 'Loading translations…' : 'Select a translation'
-        }
+        placeholder={isLoading ? 'Loading translations…' : 'Select translation'}
         disabled={isLoading}
         showClear
       />

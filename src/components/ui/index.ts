@@ -5,3 +5,4 @@ export * from './input-group';
 export * from './mode-toggle';
 export * from './textarea';
 export * from './tooltip';
+export * from './typography';

@@ -37,7 +37,7 @@ export const VerseCombobox = ({ isStart = false }: Props) => {
   const options = isStart
     ? allVerses
     : allVerses.filter(
-        (v) => verseStart === null || v.verseNumber >= verseStart,
+        (v) => verseStart === null || v.verseNumber > verseStart,
       );
 
   const selectedNumber = isStart ? verseStart : verseEnd;
@@ -45,6 +45,12 @@ export const VerseCombobox = ({ isStart = false }: Props) => {
     options.find((v) => v.verseNumber === selectedNumber) ?? null;
 
   const disabled = isStart ? !chapterNumber || !translation : !verseStart;
+
+  const placeholder = isLoading
+    ? 'Loading verses…'
+    : isStart
+      ? 'Select start verse'
+      : 'Select end verse';
 
   return (
     <Combobox
@@ -64,7 +70,7 @@ export const VerseCombobox = ({ isStart = false }: Props) => {
     >
       <ComboboxInput
         className="max-w-45"
-        placeholder={isLoading ? 'Loading verses…' : 'Select a verse'}
+        placeholder={placeholder}
         disabled={disabled || isLoading}
         showClear
       />
