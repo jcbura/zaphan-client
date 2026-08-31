@@ -5,16 +5,16 @@ interface VerseSelectionState {
   translation: string | null;
   bookId: number | null;
   chapterNumber: number | null;
-  verseStart: number | null;
-  verseEnd: number | null;
+  startVerse: number | null;
+  endVerse: number | null;
 }
 
 const initialState: VerseSelectionState = {
   translation: null,
   bookId: null,
   chapterNumber: null,
-  verseStart: null,
-  verseEnd: null,
+  startVerse: null,
+  endVerse: null,
 };
 
 const verseSelectionSlice = createSlice({
@@ -26,39 +26,39 @@ const verseSelectionSlice = createSlice({
       if (action.payload === null) {
         state.bookId = null;
         state.chapterNumber = null;
-        state.verseStart = null;
-        state.verseEnd = null;
+        state.startVerse = null;
+        state.endVerse = null;
       }
     },
     setBook(state, action: PayloadAction<number | null>) {
       state.bookId = action.payload;
       state.chapterNumber = null;
-      state.verseStart = null;
-      state.verseEnd = null;
+      state.startVerse = null;
+      state.endVerse = null;
     },
     setChapter(state, action: PayloadAction<number | null>) {
       state.chapterNumber = action.payload;
-      state.verseStart = null;
-      state.verseEnd = null;
+      state.startVerse = null;
+      state.endVerse = null;
     },
-    setVerseStart(state, action: PayloadAction<number | null>) {
-      state.verseStart = action.payload;
+    setStartVerse(state, action: PayloadAction<number | null>) {
+      state.startVerse = action.payload;
       if (action.payload === null) {
-        state.verseEnd = null;
-      } else if (state.verseEnd !== null && state.verseEnd < action.payload) {
-        state.verseEnd = null;
+        state.endVerse = null;
+      } else if (state.endVerse !== null && state.endVerse < action.payload) {
+        state.endVerse = null;
       }
     },
-    setVerseEnd(state, action: PayloadAction<number | null>) {
-      const { verseStart } = state;
+    setEndVerse(state, action: PayloadAction<number | null>) {
+      const { startVerse } = state;
       if (
         action.payload !== null &&
-        verseStart !== null &&
-        action.payload < verseStart
+        startVerse !== null &&
+        action.payload < startVerse
       ) {
         return;
       }
-      state.verseEnd = action.payload;
+      state.endVerse = action.payload;
     },
     resetSelection() {
       return initialState;
@@ -70,15 +70,15 @@ export const verseSelectionSelectors = {
   translation: (state: RootState) => state.verseSelection.translation,
   bookId: (state: RootState) => state.verseSelection.bookId,
   chapterNumber: (state: RootState) => state.verseSelection.chapterNumber,
-  verseStart: (state: RootState) => state.verseSelection.verseStart,
-  verseEnd: (state: RootState) => state.verseSelection.verseEnd,
+  startVerse: (state: RootState) => state.verseSelection.startVerse,
+  endVerse: (state: RootState) => state.verseSelection.endVerse,
 };
 
 export const {
   setTranslation,
   setBook,
   setChapter,
-  setVerseStart,
-  setVerseEnd,
+  setStartVerse,
+  setEndVerse,
 } = verseSelectionSlice.actions;
 export { verseSelectionSlice };

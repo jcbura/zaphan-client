@@ -1,5 +1,5 @@
 import { rootApi } from '@/api';
-import { verseSelectionSlice } from '@/stores';
+import { memorizationSlice, verseSelectionSlice } from '@/stores';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
@@ -27,6 +27,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  memorization: memorizationSlice.reducer,
   verseSelection: verseSelectionSlice.reducer,
   [rootApi.reducerPath]: rootApi.reducer,
 });
