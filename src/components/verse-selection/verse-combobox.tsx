@@ -10,7 +10,7 @@ import {
   ComboboxList,
 } from '@/components';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { setVerseEnd, setVerseStart, verseSelectionSelectors } from '@/stores';
+import { setEndVerse, setStartVerse, verseSelectionSelectors } from '@/stores';
 
 interface Props {
   isStart?: boolean;
@@ -21,8 +21,8 @@ export const VerseCombobox = ({ isStart = false }: Props) => {
   const bookId = useAppSelector(verseSelectionSelectors.bookId);
   const chapterNumber = useAppSelector(verseSelectionSelectors.chapterNumber);
   const translation = useAppSelector(verseSelectionSelectors.translation);
-  const verseStart = useAppSelector(verseSelectionSelectors.verseStart);
-  const verseEnd = useAppSelector(verseSelectionSelectors.verseEnd);
+  const startVerse = useAppSelector(verseSelectionSelectors.startVerse);
+  const endVerse = useAppSelector(verseSelectionSelectors.endVerse);
 
   const { data, isLoading } = useGetVersesQuery(
     {
@@ -37,14 +37,14 @@ export const VerseCombobox = ({ isStart = false }: Props) => {
   const options = isStart
     ? allVerses
     : allVerses.filter(
-        (v) => verseStart === null || v.verseNumber > verseStart,
+        (v) => startVerse === null || v.verseNumber > startVerse,
       );
 
-  const selectedNumber = isStart ? verseStart : verseEnd;
+  const selectedNumber = isStart ? startVerse : endVerse;
   const selectedVerse =
     options.find((v) => v.verseNumber === selectedNumber) ?? null;
 
-  const disabled = isStart ? !chapterNumber || !translation : !verseStart;
+  const disabled = isStart ? !chapterNumber || !translation : !startVerse;
 
   const placeholder = isLoading
     ? 'Loading verses…'
@@ -59,9 +59,9 @@ export const VerseCombobox = ({ isStart = false }: Props) => {
       value={selectedVerse}
       onValueChange={(verse: Verse | null) => {
         if (isStart) {
-          dispatch(setVerseStart(verse?.verseNumber ?? null));
+          dispatch(setStartVerse(verse?.verseNumber ?? null));
         } else {
-          dispatch(setVerseEnd(verse?.verseNumber ?? null));
+          dispatch(setEndVerse(verse?.verseNumber ?? null));
         }
       }}
       itemToStringValue={(verse: Verse) => String(verse.verseNumber)}

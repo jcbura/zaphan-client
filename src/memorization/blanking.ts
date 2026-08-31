@@ -1,4 +1,4 @@
-export type Segment = { text: string; blankable: boolean };
+import type { BlankedSegment, Segment } from '@/memorization';
 
 export const WORD_RE = /[A-Za-z]+(?:['’][A-Za-z]+)*/g;
 
@@ -38,7 +38,7 @@ export const applyBlanking = (
     ceiling = Infinity,
     rng = Math.random,
   }: BlankingOptions,
-): (Segment & { blanked: boolean })[] => {
+): BlankedSegment[] => {
   const blankableIndices = segments
     .map((s, i) => (s.blankable ? i : -1))
     .filter((i) => i !== -1);
