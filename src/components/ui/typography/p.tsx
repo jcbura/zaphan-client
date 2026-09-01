@@ -12,21 +12,27 @@ const pVariants = cva('', {
       small: 'text-sm leading-none font-medium',
       muted: 'text-muted-foreground text-sm',
     },
+    font: {
+      sans: 'font-sans',
+      serif: 'font-serif',
+      condensed: 'font-condensed',
+    },
   },
   defaultVariants: {
     variant: 'default',
+    font: 'sans',
   },
 });
 
 interface PProps
   extends useRender.ComponentProps<'p'>, VariantProps<typeof pVariants> {}
 
-function P({ render, className, variant, ...props }: PProps) {
+function P({ render, className, variant, font, ...props }: PProps) {
   const defaultProps: useRender.ElementProps<'p'> & {
     'data-slot': string;
   } = {
     'data-slot': 'p',
-    className: cn(pVariants({ variant }), className),
+    className: cn(pVariants({ variant, font }), className),
   };
 
   return useRender({
