@@ -1,17 +1,18 @@
 'use client';
 
 import { useGetVersesQuery } from '@/api';
-import { useAppSelector } from '@/hooks/rtk-hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/rtk-hooks';
 import {
   prepareVerseText,
   resolveVerseScope,
   verseScopeKey,
 } from '@/memorization';
-import { verseSelectionSelectors } from '@/stores';
+import { clearTest, verseSelectionSelectors } from '@/stores';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 export const useVerseDisplay = () => {
+  const dispatch = useAppDispatch();
   const translation = useAppSelector(verseSelectionSelectors.translation);
   const bookId = useAppSelector(verseSelectionSelectors.bookId);
   const chapterNumber = useAppSelector(verseSelectionSelectors.chapterNumber);
@@ -31,6 +32,10 @@ export const useVerseDisplay = () => {
   );
 
   const scopeKey = verseScopeKey(scope);
+
+  useEffect(() => {
+    dispatch(clearTest());
+  }, [dispatch, scopeKey]);
 
   const { currentData, isLoading, isFetching, isError } = useGetVersesQuery(
     scope.kind !== 'none' ? scope.fetchArgs : skipToken,

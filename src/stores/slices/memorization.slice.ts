@@ -74,6 +74,10 @@ const memorizationSlice = createSlice({
         input: state.segments[index].text,
       };
     },
+    clearTest(state) {
+      state.segments = [];
+      state.testState = {};
+    },
     resetTest() {
       return initialState;
     },
@@ -108,6 +112,7 @@ export const {
   setInput,
   submitAnswers,
   revealBlank,
+  clearTest,
   resetTest,
 } = memorizationSlice.actions;
 export { memorizationSlice };
