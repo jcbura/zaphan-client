@@ -27,7 +27,7 @@ export const ModeToggle = () => {
         }
       />
       <TooltipContent side="left" sideOffset={8}>
-        <P>{resolvedTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</P>
+        <P>{resolvedTheme === 'light' ? 'dark mode' : 'light mode'}</P>
       </TooltipContent>
     </Tooltip>
   );
