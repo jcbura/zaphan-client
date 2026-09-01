@@ -34,8 +34,8 @@ export const TranslationCombobox = () => {
       itemToStringLabel={(translation: Translation) => translation.name}
     >
       <ComboboxInput
-        className="max-w-45"
-        placeholder={isLoading ? 'Loading translations…' : 'Select translation'}
+        className="hover:bg-muted dark:hover:bg-muted/50 max-w-45 rounded-none rounded-tl rounded-tr border-t-0 border-r-0 border-b border-l-0 bg-transparent dark:bg-transparent"
+        placeholder={isLoading ? 'loading translations…' : 'select translation'}
         disabled={isLoading}
         showClear
       />

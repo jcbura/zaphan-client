@@ -33,8 +33,8 @@ export const BookCombobox = () => {
       itemToStringLabel={(book: Book) => book.name}
     >
       <ComboboxInput
-        className="max-w-45"
-        placeholder={isLoading ? 'Loading books…' : 'Select book'}
+        className="hover:bg-muted dark:hover:bg-muted/50 max-w-45 rounded-none rounded-tl rounded-tr border-t-0 border-r-0 border-b border-l-0 bg-transparent dark:bg-transparent"
+        placeholder={isLoading ? 'loading books…' : 'select book'}
         disabled={isLoading}
         showClear
       />

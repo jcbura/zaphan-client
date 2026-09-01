@@ -47,10 +47,10 @@ export const VerseCombobox = ({ isStart = false }: Props) => {
   const disabled = isStart ? !chapterNumber || !translation : !startVerse;
 
   const placeholder = isLoading
-    ? 'Loading verses…'
+    ? 'loading verses…'
     : isStart
-      ? 'Select start verse'
-      : 'Select end verse';
+      ? 'select start verse'
+      : 'select end verse';
 
   return (
     <Combobox
@@ -69,7 +69,7 @@ export const VerseCombobox = ({ isStart = false }: Props) => {
       disabled={disabled}
     >
       <ComboboxInput
-        className="max-w-45"
+        className="hover:bg-muted dark:hover:bg-muted/50 max-w-45 rounded-none rounded-tl rounded-tr border-t-0 border-r-0 border-b border-l-0 bg-transparent dark:bg-transparent"
         placeholder={placeholder}
         disabled={disabled || isLoading}
         showClear
