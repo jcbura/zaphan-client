@@ -12,13 +12,13 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface MemorizationState {
   segments: BlankedSegment[];
   testState: TestState;
-  difficultyPercent: number;
+  difficulty: number | null;
 }
 
 const initialState: MemorizationState = {
   segments: [],
   testState: {},
-  difficultyPercent: 0,
+  difficulty: null,
 };
 
 const buildInitialTestState = (segments: BlankedSegment[]): TestState =>
@@ -36,8 +36,12 @@ const memorizationSlice = createSlice({
   name: 'memorization',
   initialState,
   reducers: {
-    setDifficultyPercent(state, action: PayloadAction<number>) {
-      state.difficultyPercent = Math.min(100, Math.max(0, action.payload));
+    setDifficulty(state, action: PayloadAction<number | null>) {
+      if (action.payload === null) {
+        state.difficulty = null;
+        return;
+      }
+      state.difficulty = Math.min(100, Math.max(0, action.payload));
     },
     startTest(state, action: PayloadAction<BlankedSegment[]>) {
       state.segments = action.payload;
@@ -82,7 +86,7 @@ const selectTestState = (state: RootState) => state.memorization.testState;
 export const memorizationSelectors = {
   segments: selectSegments,
   testState: selectTestState,
-  difficultyPercent: (state: RootState) => state.memorization.difficultyPercent,
+  difficulty: (state: RootState) => state.memorization.difficulty,
   isComplete: (state: RootState) =>
     Object.values(state.memorization.testState).every((b) =>
       isLocked(b.status),
@@ -98,7 +102,7 @@ export const memorizationSelectors = {
 };
 
 export const {
-  setDifficultyPercent,
+  setDifficulty,
   startTest,
   retryTest,
   setInput,
