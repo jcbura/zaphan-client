@@ -2,14 +2,28 @@
 
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { memorizationSelectors, setDifficulty } from '@/stores';
+import {
+  memorizationSelectors,
+  setDifficulty,
+  verseSelectionSelectors,
+} from '@/stores';
 import { useState } from 'react';
 
 export const DifficultyInput = () => {
   const dispatch = useAppDispatch();
   const difficulty = useAppSelector(memorizationSelectors.difficulty);
+  const translation = useAppSelector(verseSelectionSelectors.translation);
+  const bookId = useAppSelector(verseSelectionSelectors.bookId);
+  const chapterNumber = useAppSelector(verseSelectionSelectors.chapterNumber);
 
-  const [value, setValue] = useState(String(difficulty));
+  const isDisabled =
+    translation === null || bookId === null || chapterNumber === null;
+
+  const [draft, setDraft] = useState<string | null>(null);
+
+  const displayValue = isDisabled
+    ? ''
+    : (draft ?? (difficulty === null ? '' : String(difficulty)));
 
   return (
     <InputGroup className="hover:bg-muted dark:hover:bg-muted/50 max-w-45 rounded-none rounded-tl rounded-tr border-t-0 border-r-0 border-b border-l-0 bg-transparent dark:bg-transparent">
@@ -19,21 +33,37 @@ export const DifficultyInput = () => {
         min={0}
         max={100}
         step={5}
-        value={value}
+        value={displayValue}
+        disabled={isDisabled}
+        onFocus={() => {
+          setDraft(difficulty === null ? '' : String(difficulty));
+        }}
         onChange={(event) => {
-          setValue(event.target.value);
+          setDraft(event.target.value);
         }}
         onBlur={() => {
-          if (value === '') {
+          if (isDisabled) {
+            setDraft(null);
+            return;
+          }
+
+          const current =
+            draft ?? (difficulty === null ? '' : String(difficulty));
+          setDraft(null);
+
+          if (current === '') {
             dispatch(setDifficulty(null));
             return;
           }
 
-          const number = Number(value);
-
+          const number = Number(current);
           const clamped = Math.min(100, Math.max(0, number));
 
-          setValue(String(clamped));
+          if (clamped <= 0) {
+            dispatch(setDifficulty(null));
+            return;
+          }
+
           dispatch(setDifficulty(clamped));
         }}
       />

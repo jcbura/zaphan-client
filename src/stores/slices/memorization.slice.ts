@@ -78,6 +78,16 @@ const memorizationSlice = createSlice({
       state.segments = [];
       state.testState = {};
     },
+    revealAllBlanks(state) {
+      for (const [key, blank] of Object.entries(state.testState)) {
+        const index = Number(key);
+        if (isLocked(blank.status)) continue;
+        state.testState[index] = {
+          status: 'revealed',
+          input: state.segments[index].text,
+        };
+      }
+    },
     resetTest() {
       return initialState;
     },
@@ -91,6 +101,33 @@ export const memorizationSelectors = {
   segments: selectSegments,
   testState: selectTestState,
   difficulty: (state: RootState) => state.memorization.difficulty,
+  isTestActive: (state: RootState) =>
+    state.memorization.segments.some((segment) => segment.blanked),
+  isSubmitted: (state: RootState) =>
+    Object.values(state.memorization.testState).some(
+      (blank) =>
+        blank.status === 'correct' ||
+        blank.status === 'incorrect' ||
+        blank.status === 'revealed',
+    ),
+  canSubmit: (state: RootState) => {
+    if (!state.memorization.segments.some((segment) => segment.blanked)) {
+      return false;
+    }
+    return Object.values(state.memorization.testState).some(
+      (blank) => !isLocked(blank.status),
+    );
+  },
+  canReset: (state: RootState) =>
+    state.memorization.segments.some((segment) => segment.blanked),
+  canRevealAll: (state: RootState) => {
+    if (!state.memorization.segments.some((segment) => segment.blanked)) {
+      return false;
+    }
+    return Object.values(state.memorization.testState).some(
+      (blank) => !isLocked(blank.status),
+    );
+  },
   isComplete: (state: RootState) =>
     Object.values(state.memorization.testState).every((b) =>
       isLocked(b.status),
@@ -113,6 +150,7 @@ export const {
   submitAnswers,
   revealBlank,
   clearTest,
+  revealAllBlanks,
   resetTest,
 } = memorizationSlice.actions;
 export { memorizationSlice };

@@ -1,2 +1,2 @@
 export * from './rtk-hooks';
-export * from './use-verse-display';
+export * from './use-memorization-session';
