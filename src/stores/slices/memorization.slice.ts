@@ -115,7 +115,7 @@ export const memorizationSelectors = {
       return false;
     }
     return Object.values(state.memorization.testState).some(
-      (blank) => !isLocked(blank.status),
+      (blank) => !isLocked(blank.status) && blank.input.trim() !== '',
     );
   },
   canReset: (state: RootState) =>
