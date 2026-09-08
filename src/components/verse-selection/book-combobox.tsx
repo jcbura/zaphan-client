@@ -39,7 +39,7 @@ export const BookCombobox = () => {
         showClear
       />
       <ComboboxContent>
-        <ComboboxEmpty>No books found.</ComboboxEmpty>
+        <ComboboxEmpty>no books found</ComboboxEmpty>
         <ComboboxList>
           {(book: Book) => (
             <ComboboxItem key={book.id} value={book}>
