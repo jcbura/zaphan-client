@@ -45,7 +45,7 @@ export const ChapterCombobox = () => {
         showClear
       />
       <ComboboxContent>
-        <ComboboxEmpty>No chapters found.</ComboboxEmpty>
+        <ComboboxEmpty>no chapters found</ComboboxEmpty>
         <ComboboxList>
           {(chapter: Chapter) => (
             <ComboboxItem key={chapter.chapterNumber} value={chapter}>
