@@ -40,7 +40,7 @@ export const TranslationCombobox = () => {
         showClear
       />
       <ComboboxContent>
-        <ComboboxEmpty>No translations found.</ComboboxEmpty>
+        <ComboboxEmpty>no translations found</ComboboxEmpty>
         <ComboboxList>
           {(translation: Translation) => (
             <ComboboxItem key={translation.id} value={translation}>
