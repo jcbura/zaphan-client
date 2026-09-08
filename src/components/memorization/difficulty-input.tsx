@@ -7,7 +7,7 @@ import {
   setDifficulty,
   verseSelectionSelectors,
 } from '@/stores';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export const DifficultyInput = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +25,31 @@ export const DifficultyInput = () => {
     ? ''
     : (draft ?? (difficulty === null ? '' : String(difficulty)));
 
+  const commitDifficulty = useCallback(() => {
+    if (isDisabled) {
+      setDraft(null);
+      return;
+    }
+
+    const current = draft ?? (difficulty === null ? '' : String(difficulty));
+    setDraft(null);
+
+    if (current === '') {
+      dispatch(setDifficulty(null));
+      return;
+    }
+
+    const number = Number(current);
+    const clamped = Math.min(100, Math.max(0, number));
+
+    if (clamped <= 0) {
+      dispatch(setDifficulty(null));
+      return;
+    }
+
+    dispatch(setDifficulty(clamped));
+  }, [dispatch, draft, difficulty, isDisabled]);
+
   return (
     <InputGroup className="hover:bg-muted dark:hover:bg-muted/50 max-w-45 rounded-none rounded-tl rounded-tr border-t-0 border-r-0 border-b border-l-0 bg-transparent dark:bg-transparent">
       <InputGroupInput
@@ -41,30 +66,12 @@ export const DifficultyInput = () => {
         onChange={(event) => {
           setDraft(event.target.value);
         }}
-        onBlur={() => {
-          if (isDisabled) {
-            setDraft(null);
-            return;
-          }
+        onBlur={commitDifficulty}
+        onKeyDown={(event) => {
+          if (event.key !== 'Enter') return;
 
-          const current =
-            draft ?? (difficulty === null ? '' : String(difficulty));
-          setDraft(null);
-
-          if (current === '') {
-            dispatch(setDifficulty(null));
-            return;
-          }
-
-          const number = Number(current);
-          const clamped = Math.min(100, Math.max(0, number));
-
-          if (clamped <= 0) {
-            dispatch(setDifficulty(null));
-            return;
-          }
-
-          dispatch(setDifficulty(clamped));
+          event.preventDefault();
+          commitDifficulty();
         }}
       />
       <InputGroupAddon align="inline-end">%</InputGroupAddon>

@@ -105,10 +105,7 @@ export const memorizationSelectors = {
     state.memorization.segments.some((segment) => segment.blanked),
   isSubmitted: (state: RootState) =>
     Object.values(state.memorization.testState).some(
-      (blank) =>
-        blank.status === 'correct' ||
-        blank.status === 'incorrect' ||
-        blank.status === 'revealed',
+      (blank) => blank.status === 'correct' || blank.status === 'incorrect',
     ),
   canSubmit: (state: RootState) => {
     if (!state.memorization.segments.some((segment) => segment.blanked)) {
