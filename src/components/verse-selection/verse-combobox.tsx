@@ -75,7 +75,7 @@ export const VerseCombobox = ({ isStart = false }: Props) => {
         showClear
       />
       <ComboboxContent>
-        <ComboboxEmpty>No verses found.</ComboboxEmpty>
+        <ComboboxEmpty>no verses found</ComboboxEmpty>
         <ComboboxList>
           {(verse: Verse) => (
             <ComboboxItem key={verse.verseNumber} value={verse}>
