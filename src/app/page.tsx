@@ -6,8 +6,8 @@ const Home = () => {
   return (
     <div className="flex flex-1 flex-col">
       <SiteHeader />
-      <main className="flex flex-1 flex-col px-4 pb-12 md:px-6">
-        <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-12">
+      <main className="flex flex-1 flex-col px-4 pb-8 md:px-6 md:pb-12">
+        <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 md:gap-12">
           <VerseSelectionBar />
           <MemorizationPanel />
         </div>
