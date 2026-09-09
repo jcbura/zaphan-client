@@ -68,6 +68,7 @@ export const BlankInput = ({ index }: BlankInputProps) => {
                   type="button"
                   variant="ghost"
                   size="icon-xs"
+                  aria-label="reveal answer"
                   onClick={() => dispatch(revealBlank(index))}
                 >
                   <QuestionIcon />

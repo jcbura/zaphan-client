@@ -1,7 +1,7 @@
 import { TooltipProvider } from '@/components';
 import { ModeProvider, StoreProvider } from '@/providers';
 import { cn } from '@/utils';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import '@/styles/globals.css';
 import { Barlow, Barlow_Condensed, Spectral } from 'next/font/google';
 
@@ -30,6 +30,12 @@ export const metadata: Metadata = {
   },
   description:
     'Memorize Scripture and hide God’s Word in your heart with Zaphan.',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
