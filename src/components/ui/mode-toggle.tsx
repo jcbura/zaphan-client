@@ -21,7 +21,12 @@ export const ModeToggle = () => {
     <Tooltip>
       <TooltipTrigger
         render={
-          <Button variant="ghost" size="icon" onClick={toggleTheme}>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label={resolvedTheme === 'light' ? 'dark mode' : 'light mode'}
+            onClick={toggleTheme}
+          >
             <SunHorizonIcon />
           </Button>
         }

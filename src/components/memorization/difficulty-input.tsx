@@ -51,7 +51,7 @@ export const DifficultyInput = () => {
   }, [dispatch, draft, difficulty, isDisabled]);
 
   return (
-    <InputGroup className="hover:bg-muted dark:hover:bg-muted/50 max-w-45 rounded-none rounded-tl rounded-tr border-t-0 border-r-0 border-b border-l-0 bg-transparent dark:bg-transparent">
+    <InputGroup className="hover:bg-muted dark:hover:bg-muted/50 rounded-none rounded-tl rounded-tr border-t-0 border-r-0 border-b border-l-0 bg-transparent sm:max-w-45 dark:bg-transparent">
       <InputGroupInput
         placeholder="select difficulty"
         type="number"
